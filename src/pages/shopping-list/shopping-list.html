@@ -13,13 +13,27 @@
     <ion-list>
       <ion-item>
         <ion-label fixed>Item</ion-label>
-        <ion-input type="text" id="itemName" name="itemName" placeholder="Eggs" ngModel></ion-input>
+        <ion-input
+          type="text"
+          id="itemName"
+          name="itemName"
+          placeholder="Eggs"
+          ngModel
+          required
+        ></ion-input>
       </ion-item>
       <ion-item>
         <ion-label fixed>Amount</ion-label>
-        <ion-input type="number" id="amount" name="amount" placeholder="2" ngModel></ion-input>
+        <ion-input
+          type="number"
+          id="amount"
+          name="amount"
+          placeholder="2"
+          ngModel
+          required
+        ></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button type="submit" block>Add Item</button>
+    <button ion-button type="submit" block [disabled]="!f.valid">Add Item</button>
   </form>
 </ion-content>
