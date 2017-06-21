@@ -35,8 +35,16 @@
     <button ion-button type="submit" block [disabled]="!f.valid">Add Item</button>
   </form>
   <ion-list>
-    <ion-item *ngFor="let item of listItems">
+    <ion-item-sliding *ngFor="let item of listItems; let i = index" >
+      <ion-item>
       <h3>{{ item.name }} ({{ item.amount }}) </h3>
-    </ion-item>
+      </ion-item>
+    <ion-item-options (ionSwipe)="onRemoveItem(i)">
+      <button ion-button expandable color="danger" (click)="onRemoveItem(i)">
+        <ion-icon name="trash">
+        </ion-icon>
+      </button>
+    </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
