@@ -17,7 +17,7 @@
           type="text"
           name="itemName"
           placeholder="Eggs"
-          ngModel
+          [(ngModel)]="someName"
           required
         ></ion-input>
       </ion-item>
@@ -27,7 +27,7 @@
           type="number"
           name="amount"
           placeholder="2"
-          ngModel
+          [(ngModel)]="someAmount"
           required
         ></ion-input>
       </ion-item>
@@ -35,11 +35,11 @@
     <button ion-button type="submit" block [disabled]="!f.valid">Add Item</button>
   </form>
   <ion-list>
-    <ion-item-sliding *ngFor="let item of listItems; let i = index" >
-      <ion-item>
+    <ion-item-sliding *ngFor="let item of listItems; let i = index">
+      <ion-item (tap)="onEditItem(i)">
       <h3>{{ item.name }} ({{ item.amount }}) </h3>
       </ion-item>
-    <ion-item-options (ionSwipe)="onRemoveItem(i)">
+    <ion-item-options>
       <button ion-button expandable color="danger" (click)="onRemoveItem(i)">
         <ion-icon name="trash">
         </ion-icon>

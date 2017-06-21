@@ -10,10 +10,11 @@ import { Ingredient } from '../../models/ingredient.model'
   templateUrl: 'shopping-list.html',
 })
 export class ShoppingListPage {
-
-
-
+    
   constructor(private slService: ShoppingListService) {}
+
+  someName: string;
+  someAmount: number;
 
   listItems: Ingredient[];
 
@@ -28,6 +29,13 @@ export class ShoppingListPage {
   }
   
   onRemoveItem(index: number) {
+    this.slService.removeItem(index);
+    this.loadItems();
+  }
+  
+  onEditItem(index){
+    this.someName = this.slService.getItem(index).name;
+    this.someAmount = this.slService.getItem(index).amount;
     this.slService.removeItem(index);
     this.loadItems();
   }
