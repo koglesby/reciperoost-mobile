@@ -13,14 +13,10 @@ import { RecipePage } from '../recipe/recipe';
 })
 export class RecipesPage {
 
-  constructor(private navCtrl: NavController, private recipesService: RecipesService) {
+  constructor(private navCtrl: NavController, private recipesService: RecipesService, private navParams: NavParams) {
   }
 
   recipes: Recipe[];
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RecipesPage');
-  }
   
   onNewRecipe() {
     this.navCtrl.push(EditRecipePage, {mode: 'New'});
@@ -28,6 +24,7 @@ export class RecipesPage {
 
   ionViewWillEnter() {
     this.recipes = this.recipesService.getRecipes();
+    
   }
 
   onLoadRecipe(recipe: Recipe, index: number) {
