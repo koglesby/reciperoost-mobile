@@ -36,12 +36,12 @@
       </ion-item>
     </ion-list>
     <button type="button" clear ion-button block (click)="onManageIngredients()">Manage Ingredients</button>
-    <ion-list formArrayName="ingredients">
-      <ion-item *ngFor="let igControl of recipeForm.get('ingredients').controls; let i = index">
-        <ion-label floating>Name</ion-label>
-        <ion-input type="text" [formControlName]="i"></ion-input>
-      </ion-item>
-    </ion-list>
+      <ion-list formArrayName="ingredients">
+        <ion-item *ngFor="let igControl of recipeForm.get('ingredients').controls; let i = index" [formGroupName]="i">
+          <ion-input type="text" formControlName="name"></ion-input>
+          <ion-input type="text" formControlName="amount"></ion-input>
+        </ion-item>
+      </ion-list>
     <button
       type="submit"
       ion-button

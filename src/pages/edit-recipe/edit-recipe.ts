@@ -46,8 +46,12 @@ export class EditRecipePage implements OnInit {
       title = this.recipe.title;
       description = this.recipe.description;
       difficulty = this.recipe.difficulty;
+      console.log(this.recipe.ingredients);
       for (let ingredient of this.recipe.ingredients) {
-        ingredients.push(new FormControl(ingredient.name, Validators.required));
+        ingredients.push(new FormGroup({
+          'name': new FormControl(ingredient.name, Validators.required),
+          'amount': new FormControl(ingredient.amount, [Validators.required, Validators.pattern(/[1-9]+[0-9]*$/)])
+        }))
       }
     }
 
@@ -63,15 +67,17 @@ export class EditRecipePage implements OnInit {
   onSubmit() {
     const value = this.recipeForm.value;
     let ingredients = [];
+
     if (value.ingredients.length > 0) {
-      ingredients = value.ingredients.map(name => {
-        return {name: name, amount: 1};
+      ingredients = value.ingredients.map((name, amount) => {
+        return {name: name, amount: amount};
       });
+
     }
     if (this.mode == 'Edit') {
-      this.recipesService.updateRecipe(this.index,value.title, value.description, value.difficulty, ingredients)
+      this.recipesService.updateRecipe(this.index,value.title, value.description, value.difficulty, value.ingredients)
     } else {
-      this.recipesService.addRecipe(value.title, value.description, value.difficulty, ingredients);
+      this.recipesService.addRecipe(value.title, value.description, value.difficulty, value.ingredients);
     }
     this.recipeForm.reset();
     this.navCtrl.popToRoot();
@@ -122,6 +128,10 @@ export class EditRecipePage implements OnInit {
         {
           name: 'name',
           placeholder: 'Name'
+        },
+        {
+          name: 'amount',
+          placeholder: 'Amount'
         }
       ],
       buttons: [
@@ -141,7 +151,14 @@ export class EditRecipePage implements OnInit {
               toast.present()
               return;
             }
-            (<FormArray>this.recipeForm.get('ingredients')).push(new FormControl(data.name, Validators.required))
+            console.log(this.recipeForm.get('ingredients'));
+            (<FormArray>this.recipeForm.get('ingredients')).push (
+              new FormGroup({
+                'name': new FormControl(data.name, Validators.required),
+                'amount': new FormControl(data.amount, [Validators.required, Validators.pattern(/[1-9]+[0-9]*$/)])
+              })
+            );
+            console.log(data.amount);
             const toast = this.toastCtrl.create({
               message: 'Item Added',
               duration: 1700,
