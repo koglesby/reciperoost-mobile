@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {
-  IonicPage, NavController, NavParams, PopoverController, LoadingController,
+  IonicPage, NavController, PopoverController, LoadingController,
   AlertController
 } from 'ionic-angular';
 import { EditRecipePage } from '../edit-recipe/edit-recipe';
